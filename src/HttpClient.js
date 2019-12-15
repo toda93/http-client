@@ -1,8 +1,8 @@
 import fs from 'fs';
 import qs from 'querystring';
 import request from 'request';
-import {parse} from 'node-html-parser';
-import FileCookieStore from 'tough-cookie-filestore';
+import { parse } from 'node-html-parser';
+import FileCookieStore from './toughCookieFilestore';
 
 
 const BODY_TYPE = {
@@ -29,8 +29,8 @@ class HttpClient {
     }
 
     _resetOptions() {
-        this.options = {...this.init_opts};
-        this.options.headers = {...this.init_opts.headers};
+        this.options = { ...this.init_opts };
+        this.options.headers = { ...this.init_opts.headers };
     }
 
     _changeOption(option, value) {
@@ -38,7 +38,7 @@ class HttpClient {
         return this;
     }
 
-    useCookie(file){
+    useCookie(file) {
         return this._changeOption('useCookie', file);
     }
 
@@ -157,7 +157,7 @@ class HttpClient {
         return new Promise((resolve, reject) => {
             request(this.options).pipe(file).on('finish', () => {
                 const stats = fs.statSync(fileDir);
-                if(stats['size'] < minSize){
+                if (stats['size'] < minSize) {
                     reject(`file size ${stats['size']}`);
                 } else {
                     resolve(true);
@@ -186,7 +186,7 @@ class HttpClient {
         this.options.url = url;
         this.options.method = method;
 
-        if(this.options.useCookie){
+        if (this.options.useCookie) {
             if (!fs.existsSync(this.options.useCookie)) {
                 fs.closeSync(fs.openSync(this.options.useCookie, 'w'));
             }

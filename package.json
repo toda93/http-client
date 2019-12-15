@@ -26,9 +26,9 @@
   },
   "homepage": "https://github.com/toda93/http-client#readme",
   "dependencies": {
-    "request": "~2.88.0",
-    "node-html-parser": "~1.1.16",
-    "tough-cookie-filestore": "^0.0.1"
+    "request": "2.88.0",
+    "node-html-parser": "1.1.16",
+    "tough-cookie": "3.0.1"
   },
   "devDependencies": {
     "@babel/cli": "^7.7.5",
