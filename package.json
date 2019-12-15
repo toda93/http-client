@@ -1,6 +1,6 @@
 {
   "name": "toda-http-client",
-  "version": "1.0.4",
+  "version": "1.0.5",
   "description": "",
   "main": "lib/index.js",
   "repository": {
@@ -34,17 +34,21 @@
     "@babel/cli": "^7.7.5",
     "@babel/core": "^7.7.5",
     "@babel/plugin-transform-async-to-generator": "^7.7.4",
-    "@babel/preset-env": "^7.7.6"
+    "@babel/preset-env": "^7.7.6",
+    "@babel/runtime": "^7.7.6",
+    "@babel/plugin-transform-runtime": "^7.7.6"
   },
   "babel": {
     "presets": [
       "@babel/preset-env"
     ],
     "plugins": [
-      "@babel/plugin-transform-async-to-generator"
+      "@babel/transform-runtime"
     ]
   },
   "scripts": {
+    "pretest": "babel src --out-dir lib",
+    "test": "node lib/test.js",
     "prepublish": "babel src --out-dir lib"
   }
 }
