@@ -1,6 +1,6 @@
 {
   "name": "toda-http-client",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "",
   "main": "./lib/index.js",
   "repository": {
@@ -32,7 +32,7 @@
   },
   "babel": {
     "presets": [
-      "@babel/preset-env"
+      "es2015"
     ]
   },
   "scripts": {
