@@ -7,5 +7,5 @@ import HttpClient from './HttpClient';
 
     console.log(res);
 }
-)()
+)();
 
