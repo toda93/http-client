@@ -1,6 +1,6 @@
 {
   "name": "toda-http-client",
-  "version": "1.0.7",
+  "version": "1.0.8",
   "description": "",
   "main": "lib/index.js",
   "repository": {
@@ -26,24 +26,27 @@
   },
   "homepage": "https://github.com/toda93/http-client#readme",
   "dependencies": {
-    "@babel/runtime": "^7.7.6",
     "request": "2.88.0",
     "node-html-parser": "1.1.16",
     "tough-cookie": "3.0.1"
   },
   "devDependencies": {
+    "@babel/runtime": "^7.7.5",
     "@babel/cli": "^7.7.5",
     "@babel/core": "^7.7.5",
     "@babel/plugin-transform-async-to-generator": "^7.7.4",
-    "@babel/plugin-transform-runtime": "^7.7.6",
     "@babel/preset-env": "^7.7.6"
   },
   "babel": {
     "presets": [
-      "@babel/preset-env"
-    ],
-    "plugins": [
-      "@babel/plugin-transform-runtime"
+      [
+        "@babel/preset-env",
+        {
+          "targets": {
+            "node": "current"
+          }
+        }
+      ]
     ]
   },
   "scripts": {
