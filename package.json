@@ -1,57 +1,57 @@
 {
-  "name": "@azteam/http-client",
-  "version": "1.0.0",
-  "description": "",
-  "main": "lib/index.js",
-  "repository": {
-    "type": "git",
-    "url": "git+https://github.com/toda93/http-client.git"
-  },
-  "engines": {
-    "node": ">= 10.0.0",
-    "npm": "^6.0.0"
-  },
-  "keywords": [
-    "toda",
-    "nodejs",
-    "request",
-    "parse",
-    "html",
-    "cralwer"
-  ],
-  "author": "toda <sp.azsolution.net@gmail.com>",
-  "license": "MIT",
-  "bugs": {
-    "url": "https://github.com/toda93/http-client/issues"
-  },
-  "homepage": "https://github.com/toda93/http-client#readme",
-  "dependencies": {
-    "request": "2.88.0",
-    "node-html-parser": "1.1.16",
-    "tough-cookie": "3.0.1"
-  },
-  "devDependencies": {
-    "@babel/runtime": "^7.7.5",
-    "@babel/cli": "^7.7.5",
-    "@babel/core": "^7.7.5",
-    "@babel/plugin-transform-async-to-generator": "^7.7.4",
-    "@babel/preset-env": "^7.7.6"
-  },
-  "babel": {
-    "presets": [
-      [
-        "@babel/preset-env",
-        {
-          "targets": {
-            "node": "current"
-          }
-        }
-      ]
-    ]
-  },
-  "scripts": {
-    "pretest": "babel src --out-dir lib",
-    "test": "node lib/test.js",
-    "prepublish": "babel src --out-dir lib"
-  }
+    "name": "@azteam/http-client",
+    "version": "1.0.1",
+    "description": "",
+    "main": "lib/index.js",
+    "repository": {
+        "type": "git",
+        "url": "git+https://github.com/toda93/http-client.git"
+    },
+    "engines": {
+        "node": ">= 10.0.0",
+        "npm": "^6.0.0"
+    },
+    "keywords": [
+        "toda",
+        "nodejs",
+        "request",
+        "parse",
+        "html",
+        "cralwer"
+    ],
+    "author": "toda <sp.azsolution.net@gmail.com>",
+    "license": "MIT",
+    "bugs": {
+        "url": "https://github.com/toda93/http-client/issues"
+    },
+    "homepage": "https://github.com/toda93/http-client#readme",
+    "dependencies": {
+        "node-html-parser": "1.1.16",
+        "request": "2.88.0",
+        "tough-cookie": "3.0.1"
+    },
+    "devDependencies": {
+        "@babel/cli": "^7.7.5",
+        "@babel/core": "^7.7.5",
+        "@babel/plugin-transform-async-to-generator": "^7.7.4",
+        "@babel/preset-env": "^7.7.6",
+        "@babel/runtime": "^7.7.5"
+    },
+    "babel": {
+        "presets": [
+            [
+                "@babel/preset-env",
+                {
+                    "targets": {
+                        "node": "current"
+                    }
+                }
+            ]
+        ]
+    },
+    "scripts": {
+        "pretest": "babel src --out-dir lib",
+        "test": "node lib/test.js",
+        "prepublish": "babel src --out-dir lib"
+    }
 }
