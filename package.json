@@ -1,6 +1,6 @@
 {
-  "name": "toda-http-client",
-  "version": "1.0.8",
+  "name": "@azteam/http-client",
+  "version": "1.0.0",
   "description": "",
   "main": "lib/index.js",
   "repository": {
