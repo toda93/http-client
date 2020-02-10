@@ -69,7 +69,9 @@ class HttpClient {
         return this.addHeader('User-Agent', agents[Math.floor(Math.random() * agents.length)]);
     }
 
-
+    head(url, data) {
+        return this._requestAPI(url, 'HEAD', data, BODY_TYPE.QUERY_URL);
+    }
     get(url, data) {
         return this._requestAPI(url, 'GET', data, BODY_TYPE.QUERY_URL);
     }
