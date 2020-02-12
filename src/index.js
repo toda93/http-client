@@ -18,7 +18,7 @@ class HttpClient {
     constructor(options = {}) {
         this.init_opts = {
             followAllRedirects: true,
-            timeout: 300000,
+            timeout: 10 * 1000,
             resolveWithFullResponse: false,
             resolveParseDOM: false,
             resolveJSON: false,
