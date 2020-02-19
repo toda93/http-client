@@ -151,7 +151,7 @@ class HttpClient {
     }
 
 
-    download(url, fileDir, minSize = 10000000) {
+    download(url, fileDir, minSize = 0) {
         const file = fs.createWriteStream(fileDir);
 
         this.options.url = url;
