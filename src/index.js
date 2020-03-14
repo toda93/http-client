@@ -154,7 +154,7 @@ class HttpClient {
     download(url, fileDir, minSize = 0) {
         const file = fs.createWriteStream(fileDir);
 
-        this.options.url = url;
+        this.options.url = encodeURI(url);
 
         return new Promise((resolve, reject) => {
             request(this.options).pipe(file).on('finish', () => {
@@ -185,7 +185,7 @@ class HttpClient {
         } else if (body_type === BODY_TYPE.MULTIPART_FORM_DATA) {
             this.options.formData = body;
         }
-        this.options.url = url.trim();
+        this.options.url = encodeURI(url);
         this.options.method = method;
 
         if (this.options.useCookie) {
