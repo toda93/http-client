@@ -185,7 +185,7 @@ class HttpClient {
         } else if (body_type === BODY_TYPE.MULTIPART_FORM_DATA) {
             this.options.formData = body;
         }
-        this.options.url = url;
+        this.options.url = url.trim();
         this.options.method = method;
 
         if (this.options.useCookie) {
