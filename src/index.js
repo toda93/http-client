@@ -172,7 +172,7 @@ class HttpClient {
 
     _requestAPI(url, method = 'GET', body = null, body_type) {
         if (body_type === BODY_TYPE.QUERY_URL) {
-            url += (!url.includes('?') ? '?' : '&') + qs.stringify(body);
+            body && (url += (!url.includes('?') ? '?' : '&') + qs.stringify(body));
         } else if (body_type === BODY_TYPE.JSON) {
             this.options.json = true;
             this.options.body = body;
