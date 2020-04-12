@@ -14,6 +14,10 @@ const BODY_TYPE = {
     MULTIPART_FORM_DATA: 'MULTIPART_FORM_DATA',
 };
 
+process.env.UV_THREADPOOL_SIZE = 128;
+process.env.NODE_TLS_REJECT_UNAUTHORIZED = 0;
+
+
 class HttpClient {
     constructor(options = {}) {
         this.init_opts = {
@@ -23,6 +27,7 @@ class HttpClient {
             resolveParseDOM: false,
             resolveJSON: false,
             useCookie: false,
+            pool: { maxSockets: 100 },
             ...options,
         };
         this._resetOptions();
