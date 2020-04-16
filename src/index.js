@@ -15,7 +15,6 @@ const BODY_TYPE = {
 };
 
 process.env.UV_THREADPOOL_SIZE = 128;
-process.env.NODE_TLS_REJECT_UNAUTHORIZED = 0;
 
 
 class HttpClient {
