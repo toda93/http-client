@@ -27,6 +27,10 @@ class HttpClient {
             resolveJSON: false,
             useCookie: false,
             pool: { maxSockets: 100 },
+            headers: {
+                "Accept": "*/*",
+                "User-Agent": "request/2.88.2"
+            },
             ...options,
         };
         this._resetOptions();
