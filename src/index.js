@@ -24,6 +24,7 @@ class HttpClient {
             resolveParseDOM: false,
             resolveJSON: false,
             useCookie: false,
+            rejectUnauthorized: false,
             pool: { maxSockets: 100 },
             headers: {
                 "Accept": "*/*",
