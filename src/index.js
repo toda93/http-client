@@ -14,8 +14,6 @@ const BODY_TYPE = {
     MULTIPART_FORM_DATA: 'MULTIPART_FORM_DATA',
 };
 
-process.env.UV_THREADPOOL_SIZE = 128;
-
 
 class HttpClient {
     constructor(options = {}) {
