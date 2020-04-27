@@ -28,6 +28,7 @@ class HttpClient {
             agent: false,
             useAgent: true,
             pool: { maxSockets: 1000 },
+            headers: {},
             ...options,
         };
 
