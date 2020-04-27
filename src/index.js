@@ -1,7 +1,7 @@
 import fs from 'fs';
 import qs from 'querystring';
 import request from 'request';
-import { parse } from 'node-html-parser';
+import {parse} from 'node-html-parser';
 import FileCookieStore from './toughCookieFilestore';
 
 
@@ -27,22 +27,20 @@ class HttpClient {
             rejectUnauthorized: false,
             agent: false,
             useAgent: true,
-            pool: { maxSockets: 1000 },
+            pool: {maxSockets: 1000},
             headers: {},
             ...options,
         };
-
-
-        if(this.init_opts.useAgent){
-           this.randomAgent();
-        }
-
         this._resetOptions();
     }
 
     _resetOptions() {
-        this.options = { ...this.init_opts };
-        this.options.headers = { ...this.init_opts.headers };
+        this.options = {...this.init_opts};
+        this.options.headers = {...this.init_opts.headers};
+
+        if (this.options.useAgent) {
+            this.randomAgent();
+        }
     }
 
     _changeOption(option, value) {
@@ -84,6 +82,7 @@ class HttpClient {
     head(url, data) {
         return this._requestAPI(url, 'HEAD', data, BODY_TYPE.QUERY_URL);
     }
+
     get(url, data) {
         return this._requestAPI(url, 'GET', data, BODY_TYPE.QUERY_URL);
     }
@@ -142,6 +141,7 @@ class HttpClient {
     postMultipartFormData(url, data) {
         return this._requestAPI(url, 'POST', data, BODY_TYPE.MULTIPART_FORM_DATA);
     }
+
     putMultipartFormData(url, data) {
         return this._requestAPI(url, 'PUT', data, BODY_TYPE.MULTIPART_FORM_DATA);
     }
