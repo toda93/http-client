@@ -26,9 +26,16 @@ class HttpClient {
             useCookie: false,
             rejectUnauthorized: false,
             agent: false,
+            useAgent: true,
             pool: { maxSockets: 1000 },
             ...options,
         };
+
+
+        if(this.init_opts.useAgent){
+           this.randomAgent();
+        }
+
         this._resetOptions();
     }
 
