@@ -14,21 +14,22 @@ const BODY_TYPE = {
     MULTIPART_FORM_DATA: 'MULTIPART_FORM_DATA',
 };
 
+const agents = JSON.parse(fs.readFileSync(__dirname + '/agents.json', 'utf8'));
 
 class HttpClient {
     constructor(options = {}) {
         this.init_opts = {
             followAllRedirects: true,
-            timeout: 10 * 1000,
+            timeout: 30 * 1000,
             resolveWithFullResponse: false,
             resolveParseDOM: false,
             resolveJSON: false,
             useCookie: false,
             rejectUnauthorized: false,
-            agent: false,
-            useAgent: true,
-            pool: {maxSockets: 1000},
-            headers: {},
+            headers: {
+                'Accept': '*/*',
+                'User-Agent': agents[Math.floor(Math.random() * agents.length)]
+            },
             ...options,
         };
         this._resetOptions();
@@ -37,10 +38,6 @@ class HttpClient {
     _resetOptions() {
         this.options = {...this.init_opts};
         this.options.headers = {...this.init_opts.headers};
-
-        if (this.options.useAgent) {
-            this.randomAgent();
-        }
     }
 
     _changeOption(option, value) {
@@ -72,11 +69,6 @@ class HttpClient {
     addHeader(name, value) {
         this.options.headers[name] = value;
         return this;
-    }
-
-    randomAgent() {
-        const agents = JSON.parse(fs.readFileSync(__dirname + '/agents.json', 'utf8'));
-        return this.addHeader('User-Agent', agents[Math.floor(Math.random() * agents.length)]);
     }
 
     head(url, data) {
