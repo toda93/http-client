@@ -26,11 +26,7 @@ class HttpClient {
             useCookie: false,
             rejectUnauthorized: false,
             agent: false,
-            pool: { maxSockets: 100 },
-            headers: {
-                "Accept": "*/*",
-                "User-Agent": "request/2.88.2"
-            },
+            pool: { maxSockets: 1000 },
             ...options,
         };
         this._resetOptions();
