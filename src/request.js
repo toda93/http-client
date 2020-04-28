@@ -1,7 +1,7 @@
 import fs from 'fs';
 import qs from 'querystring';
 import request from 'request';
-import {parse} from 'node-html-parser';
+import { parse } from 'node-html-parser';
 import FileCookieStore from './toughCookieFilestore';
 
 
@@ -26,18 +26,18 @@ class HttpClient {
             resolveJSON: false,
             useCookie: false,
             rejectUnauthorized: false,
-            headers: {
-                'Accept': '*/*',
-                'User-Agent': agents[Math.floor(Math.random() * agents.length)]
-            },
             ...options,
         };
         this._resetOptions();
     }
 
     _resetOptions() {
-        this.options = {...this.init_opts};
-        this.options.headers = {...this.init_opts.headers};
+        this.options = { ...this.init_opts };
+        this.options.headers = {
+            'Accept': '*/*',
+            'User-Agent': agents[Math.floor(Math.random() * agents.length)],
+            ...this.init_opts.headers
+        };
     }
 
     _changeOption(option, value) {
