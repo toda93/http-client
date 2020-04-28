@@ -1,7 +1,9 @@
 import fs from 'fs';
 import qs from 'querystring';
-import { parse } from 'node-html-parser';
+import {parse} from 'node-html-parser';
 import axios from 'axios';
+import http from 'http';
+
 
 const agents = JSON.parse(fs.readFileSync(__dirname + '/agents.json', 'utf8'));
 
@@ -9,17 +11,17 @@ class HttpClient {
     constructor(options = {}) {
         this.init_opts = {
             maxRedirects: 5,
-            timeout: 30 * 1000,
             resolveWithFullResponse: false,
             resolveParseDOM: false,
-            responseType: 'text',
+            resolveJSON: false,
+            httpAgent: new http.Agent({keepAlive: true}),
             ...options,
         };
         this._resetOptions();
     }
 
     _resetOptions() {
-        this.options = { ...this.init_opts };
+        this.options = {...this.init_opts};
         this.options.headers = {
             'Accept': '*/*',
             'User-Agent': agents[Math.floor(Math.random() * agents.length)],
@@ -41,7 +43,7 @@ class HttpClient {
     }
 
     responseJSON() {
-        return this._changeOption('responseType', 'json');
+        return this._changeOption('resolveJSON', true);
     }
 
     noFollow() {
@@ -87,7 +89,7 @@ class HttpClient {
             axios({
                 ...this.options,
                 responseType: 'stream',
-            }).then(function(response) {
+            }).then(function (response) {
                 response.data.pipe(fs.createWriteStream('ada_lovelace.jpg'));
 
                 response.data.on('finish', () => {
@@ -118,9 +120,7 @@ class HttpClient {
         return new Promise((resolve, reject) => {
             const opt = this.options;
 
-            axios(opt).then(function(response) {
-
-
+            axios(opt).then(function (response) {
                 if (opt.resolveWithFullResponse) {
                     return resolve({
                         headers: response.headers,
@@ -132,9 +132,10 @@ class HttpClient {
                 }
 
                 return resolve(response.data);
-            }).catch(function(error) {
+            }).catch(function (error) {
                 reject(error);
-            }).finally {
+            }).finally
+            {
                 this._resetOptions();
             }
         });
