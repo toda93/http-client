@@ -1,5 +1,5 @@
-import HttpClient as Axios from './axios';
-import HttpClient as Request from './request';
+import Axios from './axios';
+import Request from './request';
 
 
 export {
