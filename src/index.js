@@ -1,8 +1,8 @@
-import Axios from './axios';
-import Request from './request';
+import  Axios from './axios';
+import  Request from './request';
 
 
+export default Request;
 export {
-	Request as HttpClient,
 	Axios,
 }
