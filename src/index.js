@@ -1,6 +1,6 @@
 import fs from 'fs';
 import qs from 'querystring';
-import { parse } from 'node-html-parser';
+import {parse} from 'node-html-parser';
 import axios from 'axios';
 import http from 'http';
 
@@ -15,14 +15,14 @@ class HttpClient {
             resolveWithFullResponse: false,
             resolveParseDOM: false,
             resolveJSON: false,
-            httpAgent: new http.Agent({ keepAlive: true }),
+            httpAgent: new http.Agent({keepAlive: true}),
             ...options,
         };
         this._resetOptions();
     }
 
     _resetOptions() {
-        this.options = { ...this.init_opts };
+        this.options = {...this.init_opts};
         this.options.headers = {
             ...this.init_opts.headers
         };
@@ -84,26 +84,30 @@ class HttpClient {
     }
 
 
-    download(url, fileDir, minSize = 0) {
-        const file = fs.createWriteStream(fileDir);
+    download(url, filePath, minSize = 0, method = 'get') {
+        const file = fs.createWriteStream(filePath);
         this.options.url = encodeURI(url);
 
+        this.options = {
+            ...this.options,
+            method,
+            responseType: 'stream',
+            url: encodeURI(url),
+        };
+
         return new Promise((resolve, reject) => {
-            axios({
-                ...this.options,
-                responseType: 'stream',
-            }).then((response) => {
+            axios(this.options).then((response) => {
                 response.data.pipe(file);
-                response.data.on('finish', () => {
-                    const stats = fs.statSync(fileDir);
+                file.on('finish', () => {
+                    const stats = fs.statSync(filePath);
                     if (stats['size'] < minSize) {
                         reject(`file size ${stats['size']}`);
                     } else {
                         resolve(true);
                     }
                 })
-                response.data.on('error', () => {
-                    reject();
+                file.on('error', (err) => {
+                    reject(err);
                 })
             });
         });
