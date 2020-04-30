@@ -94,7 +94,7 @@ class HttpClient {
                 ...this.options,
                 responseType: 'stream',
             }).then(function (response) {
-                response.data.pipe(fs.createWriteStream('ada_lovelace.jpg'));
+                response.data.pipe(file);
 
                 response.data.on('finish', () => {
                     const stats = fs.statSync(fileDir);
