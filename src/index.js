@@ -107,7 +107,7 @@ class HttpClient {
                     }
                 })
                 file.on('error', (err) => {
-                    reject(err);
+                    reject(err.name);
                 })
             });
         });
@@ -141,7 +141,9 @@ class HttpClient {
 
                 resolve(response.data);
             }).catch((error) => {
-                reject(error);
+                console.error(error);
+
+                reject(error.name);
             }).finally(() => {
                 this._resetOptions();
             });
