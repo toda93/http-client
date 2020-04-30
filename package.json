@@ -1,6 +1,6 @@
 {
     "name": "@azteam/http-client",
-    "version": "1.0.36",
+    "version": "1.0.37",
     "description": "",
     "main": "src/index.js",
     "repository": {
@@ -28,7 +28,6 @@
     "dependencies": {
         "axios": "^0.19.2",
         "node-html-parser": "1.2.8",
-        "request": "^2.88.2",
         "tough-cookie": "3.0.1"
     },
     "devDependencies": {
