@@ -130,22 +130,22 @@ class HttpClient {
 
             axios(opt).then(function(response) {
                 if (opt.resolveWithFullResponse) {
-                    return resolve({
+                    resolve({
                         headers: response.headers,
                         body: response.data,
                         statusCode: response.status
                     });
                 }
                 if (opt.resolveParseDOM) {
-                    return resolve(parse(response.data));
+                    resolve(parse(response.data));
                 }
 
-                return resolve(response.data);
+                resolve(response.data);
             }).catch(function(error) {
                 reject(error);
-            }).finally {
+            }).finally(function() {
                 this._resetOptions();
-            }
+            });
         });
     }
 }
