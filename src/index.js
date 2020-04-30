@@ -71,16 +71,16 @@ class HttpClient {
         return this._requestAPI(url, 'delete', data);
     }
 
-    post(url, data) {
-        return this._requestAPI(url, 'post', data);
+    post(url, data, stringify = true) {
+        return this._requestAPI(url, 'post', data, stringify);
     }
 
-    put(url, data) {
-        return this._requestAPI(url, 'put', data);
+    put(url, datastringify = true) {
+        return this._requestAPI(url, 'put', data, stringify);
     }
 
-    patch(url, data) {
-        return this._requestAPI(url, 'patch', data);
+    patch(url, data, stringify = true) {
+        return this._requestAPI(url, 'patch', data, stringify);
     }
 
 
