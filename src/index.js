@@ -112,10 +112,13 @@ class HttpClient {
         });
     }
 
-    _requestAPI(url, method = 'get', body = null) {
+    _requestAPI(url, method = 'get', body = null, stringify = true) {
         if (method === 'get') {
             body && (url += '?' + qs.stringify(body));
         } else {
+            if (stringify) {
+                body = qs.stringify(body);
+            }
             this.options.data = body;
         }
 
