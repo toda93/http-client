@@ -127,6 +127,7 @@ class HttpClient {
 
         return new Promise((resolve, reject) => {
             const opt = this.options;
+            const resetOptions = this._resetOptions;
 
             axios(opt).then(function(response) {
                 if (opt.resolveWithFullResponse) {
@@ -144,7 +145,7 @@ class HttpClient {
             }).catch(function(error) {
                 reject(error);
             }).finally(function() {
-                this._resetOptions();
+                resetOptions();
             });
         });
     }
