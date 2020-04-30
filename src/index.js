@@ -132,7 +132,8 @@ class HttpClient {
                 if (opt.resolveWithFullResponse) {
                     return resolve({
                         headers: response.headers,
-                        body: response.data
+                        body: response.data,
+                        statusCode: response.status
                     });
                 }
                 if (opt.resolveParseDOM) {
