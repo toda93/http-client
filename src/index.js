@@ -1,6 +1,6 @@
 import fs from 'fs';
 import qs from 'querystring';
-import { parse } from 'node-html-parser';
+import {parse} from 'node-html-parser';
 import axios from 'axios';
 import http from 'http';
 
@@ -15,14 +15,14 @@ class HttpClient {
             resolveWithFullResponse: false,
             resolveParseDOM: false,
             resolveJSON: false,
-            httpAgent: new http.Agent({ keepAlive: true }),
+            httpAgent: new http.Agent({keepAlive: true}),
             ...options,
         };
         this._resetOptions();
     }
 
     _resetOptions() {
-        this.options = { ...this.init_opts };
+        this.options = {...this.init_opts};
         this.options.headers = {
             ...this.init_opts.headers
         };
@@ -32,7 +32,6 @@ class HttpClient {
         this.options[option] = value;
         return this;
     }
-
 
 
     randomAgent() {
@@ -94,7 +93,7 @@ class HttpClient {
             axios({
                 ...this.options,
                 responseType: 'stream',
-            }).then(function(response) {
+            }).then(function (response) {
                 response.data.pipe(fs.createWriteStream('ada_lovelace.jpg'));
 
                 response.data.on('finish', () => {
@@ -126,26 +125,23 @@ class HttpClient {
         this.options.method = method;
 
         return new Promise((resolve, reject) => {
-            const opt = this.options;
-            const resetOptions = this._resetOptions;
-
-            axios(opt).then(function(response) {
-                if (opt.resolveWithFullResponse) {
+            axios(this.options).then((response) => {
+                if (this.options.resolveWithFullResponse) {
                     resolve({
                         headers: response.headers,
                         body: response.data,
                         statusCode: response.status
                     });
                 }
-                if (opt.resolveParseDOM) {
+                if (this.options.resolveParseDOM) {
                     resolve(parse(response.data));
                 }
 
                 resolve(response.data);
-            }).catch(function(error) {
+            }).catch((error) => {
                 reject(error);
-            }).finally(function() {
-                resetOptions();
+            }).finally(() => {
+                this._resetOptions();
             });
         });
     }
