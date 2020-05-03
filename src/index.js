@@ -16,6 +16,9 @@ class HttpClient {
             resolveParseDOM: false,
             resolveJSON: false,
             httpAgent: new http.Agent({keepAlive: true}),
+            validateStatus: function (status) {
+                return status >= 200 && status < 500; // default
+              },
             ...options,
         };
         this._resetOptions();
