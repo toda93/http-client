@@ -144,7 +144,7 @@ class HttpClient {
 
                 resolve(response.data);
             }).catch((error) => {
-                console.error(error);
+                console.error(error.toJSON());
                 reject(error.toString());
             }).finally(() => {
                 this._resetOptions();
