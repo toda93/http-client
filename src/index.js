@@ -126,7 +126,7 @@ class HttpClient {
             this.options.data = body;
         }
 
-        this.options.url = encodeURI(url);
+        // this.options.url = encodeURI(url);
         this.options.method = method;
 
         return new Promise((resolve, reject) => {
