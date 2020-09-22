@@ -89,7 +89,6 @@ class HttpClient {
 
     download(url, filePath, minSize = 0, method = 'get') {
         const file = fs.createWriteStream(filePath);
-        this.options.url = encodeURI(url);
 
         this.options = {
             ...this.options,
@@ -117,16 +116,17 @@ class HttpClient {
     }
 
     _requestAPI(url, method = 'get', body = null, stringify = true) {
+        url = encodeURI(url);
         if (method === 'get') {
             body && (url += '?' + qs.stringify(body));
         } else {
-            this.options.url = encodeURI(url);
             if (stringify) {
                 body = qs.stringify(body);
             }
             this.options.data = body;
         }
         this.options.method = method;
+        this.options.url = url;
 
         return new Promise((resolve, reject) => {
             axios(this.options).then((response) => {
