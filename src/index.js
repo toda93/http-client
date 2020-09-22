@@ -1,6 +1,6 @@
 import fs from 'fs';
 import qs from 'querystring';
-import {parse} from 'node-html-parser';
+import { parse } from 'node-html-parser';
 import axios from 'axios';
 import http from 'http';
 
@@ -15,17 +15,17 @@ class HttpClient {
             resolveWithFullResponse: false,
             resolveParseDOM: false,
             resolveJSON: false,
-            httpAgent: new http.Agent({keepAlive: true}),
-            validateStatus: function (status) {
+            httpAgent: new http.Agent({ keepAlive: true }),
+            validateStatus: function(status) {
                 return status >= 200 && status < 500; // default
-              },
+            },
             ...options,
         };
         this._resetOptions();
     }
 
     _resetOptions() {
-        this.options = {...this.init_opts};
+        this.options = { ...this.init_opts };
         this.options.headers = {
             ...this.init_opts.headers
         };
@@ -120,13 +120,12 @@ class HttpClient {
         if (method === 'get') {
             body && (url += '?' + qs.stringify(body));
         } else {
+            this.options.url = encodeURI(url);
             if (stringify) {
                 body = qs.stringify(body);
             }
             this.options.data = body;
         }
-
-        // this.options.url = encodeURI(url);
         this.options.method = method;
 
         return new Promise((resolve, reject) => {
