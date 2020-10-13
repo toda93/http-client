@@ -1,8 +1,8 @@
 {
     "name": "@azteam/http-client",
-    "version": "1.0.51",
+    "version": "1.0.52",
     "description": "",
-    "main": "src/index.js",
+    "main": "lib/index.js",
     "repository": {
         "type": "git",
         "url": "git+https://github.com/toda93/http-client.git"
@@ -36,5 +36,22 @@
         "@babel/plugin-transform-async-to-generator": "^7.7.4",
         "@babel/preset-env": "^7.7.6",
         "@babel/runtime": "^7.7.5"
+    },
+    "babel": {
+        "presets": [
+            [
+                "@babel/preset-env",
+                {
+                    "targets": {
+                        "node": "current"
+                    }
+                }
+            ]
+        ]
+    },
+    "scripts": {
+        "pretest": "babel src --out-dir lib",
+        "test": "node lib/index.js",
+        "prepublish": "babel src --out-dir lib"
     }
 }
