@@ -4,7 +4,7 @@ import { parse } from 'node-html-parser';
 import axios from 'axios';
 import http from 'http';
 
-import agents from './agents.json';
+import agents from './agents';
 
 class HttpClient {
     constructor(options = {}) {
