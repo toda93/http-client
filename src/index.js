@@ -4,8 +4,7 @@ import { parse } from 'node-html-parser';
 import axios from 'axios';
 import http from 'http';
 
-
-const agents = JSON.parse(fs.readFileSync(__dirname + '/agents.json', 'utf8'));
+import agents from './agents.json';
 
 class HttpClient {
     constructor(options = {}) {
