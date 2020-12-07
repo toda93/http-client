@@ -3,6 +3,7 @@ import qs from 'querystring';
 import { parse } from 'node-html-parser';
 import axios from 'axios';
 import http from 'http';
+import https from 'https';
 
 import agents from './agents';
 
@@ -15,6 +16,7 @@ class HttpClient {
             resolveParseDOM: false,
             resolveJSON: false,
             httpAgent: new http.Agent({ keepAlive: true }),
+            httpsAgent: new https.Agent({ keepAlive: true }),
             validateStatus: function(status) {
                 return status >= 200 && status < 500; // default
             },
