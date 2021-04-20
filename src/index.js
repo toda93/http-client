@@ -4,7 +4,7 @@ import { parse } from 'node-html-parser';
 import axios from 'axios';
 import axiosCookieJarSupport from 'axios-cookiejar-support';
 import { CookieJar } from 'tough-cookie';
-import { FileCookieStore } from 'tough-cookie-filestore';
+import FileCookieStore from 'tough-cookie-filestore';
 
 import http from 'http';
 import https from 'https';
