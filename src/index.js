@@ -2,14 +2,22 @@ import fs from 'fs';
 import qs from 'querystring';
 import { parse } from 'node-html-parser';
 import axios from 'axios';
+import axiosCookieJarSupport from 'axios-cookiejar-support';
+import { CookieJar } from 'tough-cookie';
+import { CookieFileStore } from 'tough-cookie-file-store';
+
 import http from 'http';
 import https from 'https';
 
 import agents from './agents';
 
+
+axiosCookieJarSupport(axios);
+
 class HttpClient {
     constructor(options = {}) {
         this.init_opts = {
+            cookieFile: null,
             timeout: 10 * 1000,
             maxRedirects: 5,
             resolveWithFullResponse: false,
@@ -30,6 +38,10 @@ class HttpClient {
         this.options.headers = {
             ...this.init_opts.headers
         };
+
+        if (this.init_opts.cookieFile) {
+            this.setCookieFile(this.init_opts.cookieFile);
+        }
     }
 
     _changeOption(option, value) {
@@ -37,9 +49,16 @@ class HttpClient {
         return this;
     }
 
+    setCookieFile(cookiePath) {
+        const jar = new CookieJar(new CookieFileStore(this.init_opts.cookieFile));
+        this._changeOption('jar', jar);
+        return this._changeOption('withCredentials', true);
+    }
+
 
     randomAgent() {
         return this.addHeader('User-Agent', agents[Math.floor(Math.random() * agents.length)]);
+
     }
 
     responseFull() {
