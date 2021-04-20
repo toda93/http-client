@@ -4,7 +4,7 @@ import { parse } from 'node-html-parser';
 import axios from 'axios';
 import axiosCookieJarSupport from 'axios-cookiejar-support';
 import { CookieJar } from 'tough-cookie';
-import { CookieFileStore } from 'tough-cookie-file-store';
+import { FileCookieStore } from 'tough-cookie-file-store';
 
 import http from 'http';
 import https from 'https';
@@ -50,7 +50,7 @@ class HttpClient {
     }
 
     setCookieFile(cookiePath) {
-        const jar = new CookieJar(new CookieFileStore(this.init_opts.cookieFile));
+        const jar = new CookieJar(new FileCookieStore(this.init_opts.cookieFile));
         this._changeOption('jar', jar);
         return this._changeOption('withCredentials', true);
     }
