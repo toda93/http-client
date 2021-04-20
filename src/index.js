@@ -50,6 +50,9 @@ class HttpClient {
     }
 
     setCookieFile(cookiePath) {
+        if (!fs.existsSync(this.init_opts.cookieFile)) {
+            fs.writeFileSync(this.init_opts.cookieFile);
+        }
         const jar = new CookieJar(new FileCookieStore(this.init_opts.cookieFile));
         this._changeOption('jar', jar);
         return this._changeOption('withCredentials', true);
@@ -58,7 +61,6 @@ class HttpClient {
 
     randomAgent() {
         return this.addHeader('User-Agent', agents[Math.floor(Math.random() * agents.length)]);
-
     }
 
     responseFull() {
