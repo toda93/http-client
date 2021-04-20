@@ -51,7 +51,7 @@ class HttpClient {
 
     setCookieFile(cookiePath) {
         if (!fs.existsSync(this.init_opts.cookieFile)) {
-            fs.writeFileSync(this.init_opts.cookieFile);
+            fs.writeFileSync(this.init_opts.cookieFile, '{}');
         }
         const jar = new CookieJar(new FileCookieStore(this.init_opts.cookieFile));
         this._changeOption('jar', jar);
