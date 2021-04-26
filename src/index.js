@@ -5,9 +5,9 @@ import axios from 'axios';
 import axiosCookieJarSupport from 'axios-cookiejar-support';
 import { CookieJar } from 'tough-cookie';
 import { FileCookieStore } from 'tough-cookie-file-store';
-
 import http from 'http';
 import https from 'https';
+import HttpsProxyAgent from 'https-proxy-agent';
 
 import agents from './agents';
 
@@ -16,8 +16,9 @@ axiosCookieJarSupport(axios);
 
 class HttpClient {
     constructor(options = {}) {
-        this.init_opts = {
+        this.initOpts = {
             cookieFile: null,
+            proxy: false,
             timeout: 10 * 1000,
             maxRedirects: 5,
             resolveWithFullResponse: false,
@@ -34,13 +35,16 @@ class HttpClient {
     }
 
     _resetOptions() {
-        this.options = { ...this.init_opts };
+        this.options = { ...this.initOpts };
         this.options.headers = {
-            ...this.init_opts.headers
+            ...this.initOpts.headers
         };
 
-        if (this.init_opts.cookieFile) {
-            this.setCookieFile(this.init_opts.cookieFile);
+        if (this.initOpts.cookieFile) {
+            this.setCookieFile(this.initOpts.cookieFile);
+        }
+        if (this.initOpts.proxy) {
+            this.setProxy(this.initOpts.proxy);
         }
     }
 
@@ -49,11 +53,19 @@ class HttpClient {
         return this;
     }
 
+    setProxy(proxy) {
+        this._changeOption('proxy', proxy);
+        let proxyString = `${proxy.host}:${proxy.port}`;
+        if (proxy.auth) {
+            proxyString = `${proxy.auth.username}:${proxy.auth.password}@${proxyString}`;
+        }
+        const httpsAgent = new HttpsProxyAgent(`http://${proxyString}`);
+        return this._changeOption('httpsAgent', httpsAgent);
+    }
+
     setCookieFile(cookiePath) {
-        // if (!fs.existsSync(this.init_opts.cookieFile)) {
-        //     fs.writeFileSync(this.init_opts.cookieFile, '');
-        // }
-        const jar = new CookieJar(new FileCookieStore(this.init_opts.cookieFile));
+        const jar = new CookieJar(new FileCookieStore(this.initOpts.cookieFile));
+
         this._changeOption('jar', jar);
         return this._changeOption('withCredentials', true);
     }
@@ -119,6 +131,10 @@ class HttpClient {
             url: encodeURI(url),
         };
 
+        if (url.startsWith('https')) {
+            this._changeOption('proxy', false);
+        }
+
         return new Promise((resolve, reject) => {
             axios(this.options).then((response) => {
                 response.data.pipe(file);
@@ -149,6 +165,10 @@ class HttpClient {
         }
         this.options.method = method;
         this.options.url = url;
+
+        if (url.startsWith('https')) {
+            this._changeOption('proxy', false);
+        }
 
         return new Promise((resolve, reject) => {
             axios(this.options).then((response) => {

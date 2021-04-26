@@ -1,6 +1,6 @@
 {
     "name": "@azteam/http-client",
-    "version": "1.0.64",
+    "version": "1.0.65",
     "description": "",
     "main": "lib/index.js",
     "repository": {
@@ -28,6 +28,7 @@
     "dependencies": {
         "axios": "0.21.1",
         "axios-cookiejar-support": "1.0.1",
+        "https-proxy-agent": "5.0.0",
         "node-html-parser": "1.2.8",
         "tough-cookie": "4.0.0",
         "tough-cookie-file-store": "2.0.2"
