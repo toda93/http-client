@@ -122,9 +122,13 @@ class HttpClient {
 
 
     download(url, filePath, minSize = 0, method = 'get') {
+        if (url.startsWith('https')) {
+            this._changeOption('proxy', false);
+        }
+
         const file = fs.createWriteStream(filePath);
 
-        this.options = {
+        const options = {
             ...this.options,
             method,
             responseType: 'stream',
@@ -132,12 +136,10 @@ class HttpClient {
             // url: encodeURI(url),
         };
 
-        if (url.startsWith('https')) {
-            this._changeOption('proxy', false);
-        }
+        
 
         return new Promise((resolve, reject) => {
-            axios(this.options).then((response) => {
+            axios(options).then((response) => {
                 response.data.pipe(file);
                 file.on('finish', () => {
                     const stats = fs.statSync(filePath);
@@ -155,7 +157,6 @@ class HttpClient {
     }
 
     _requestAPI(url, method = 'get', body = null, stringify = true) {
-        // url = encodeURI(url);
         if (method === 'get') {
             body && (url += '?' + qs.stringify(body));
         } else {
@@ -164,23 +165,29 @@ class HttpClient {
             }
             this.options.data = body;
         }
-        this.options.method = method;
-        this.options.url = url;
 
         if (url.startsWith('https')) {
             this._changeOption('proxy', false);
         }
 
+        const options = {
+            ...this.options,
+            method,
+            responseType: 'stream',
+            url,
+            // url: encodeURI(url),
+        };
+
         return new Promise((resolve, reject) => {
-            axios(this.options).then((response) => {
-                if (this.options.resolveWithFullResponse) {
+            axios(options).then((response) => {
+                if (options.resolveWithFullResponse) {
                     resolve({
                         headers: response.headers,
                         body: response.data,
                         statusCode: response.status
                     });
                 }
-                if (this.options.resolveParseDOM) {
+                if (options.resolveParseDOM) {
                     resolve(parse(response.data));
                 }
 
