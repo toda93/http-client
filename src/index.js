@@ -173,7 +173,6 @@ class HttpClient {
         const options = {
             ...this.options,
             method,
-            responseType: 'stream',
             url,
             // url: encodeURI(url),
         };
