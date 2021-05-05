@@ -112,7 +112,7 @@ class HttpClient {
         return this._requestAPI(url, 'post', data, stringify);
     }
 
-    put(url, datastringify = true) {
+    put(url, data, stringify = true) {
         return this._requestAPI(url, 'put', data, stringify);
     }
 
@@ -128,7 +128,8 @@ class HttpClient {
             ...this.options,
             method,
             responseType: 'stream',
-            url: encodeURI(url),
+            url,
+            // url: encodeURI(url),
         };
 
         if (url.startsWith('https')) {
@@ -154,7 +155,7 @@ class HttpClient {
     }
 
     _requestAPI(url, method = 'get', body = null, stringify = true) {
-        url = encodeURI(url);
+        // url = encodeURI(url);
         if (method === 'get') {
             body && (url += '?' + qs.stringify(body));
         } else {
