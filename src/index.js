@@ -192,7 +192,6 @@ class HttpClient {
 
                 resolve(response.data);
             }).catch((error) => {
-                console.error(error);
                 reject(error.toString());
             }).finally(() => {
                 this._resetOptions();
